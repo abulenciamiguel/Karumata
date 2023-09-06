@@ -7,7 +7,6 @@ process fastP {
 	
 	publishDir (
 	path: "${params.out_dir}/01_fastP/",
-	//pattern: "*.{json,html}",
 	mode: 'copy',
 	overwrite: 'true'
 	)
@@ -18,7 +17,7 @@ process fastP {
 	tuple val(sample), path(fastq_1), path(fastq_2)
 
 	output:
-	tuple val(sample), path("*1.fastq.gz"), path("*2.fastq.gz"), emit: trimmed
+	tuple val(sample), path("*1.fastq"), path("*2.fastq"), emit: trimmed
 	tuple val(sample), path("*.json"), emit: fastP_json
 	tuple val(sample), path("*.html"), emit: fastP_html
 
@@ -26,11 +25,11 @@ process fastP {
 	script:
 	"""
 	fastp \
-	-q $params.phred \
+	-q $params.fastPPhred \
 	-i $fastq_1 \
 	-I $fastq_2 \
-	-o ${sample}.trimmed_R1.fastq.gz \
-	-O ${sample}.trimmed_R2.fastq.gz \
+	-o ${sample}.trimmed_R1.fastq \
+	-O ${sample}.trimmed_R2.fastq \
 	-j ${sample}.fastp.json \
 	-h ${sample}.fastp.html
 	"""

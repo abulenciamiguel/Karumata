@@ -3,20 +3,25 @@ nextflow.enable.dsl=2
 
 
 // import modules
-include {fastP} from '../modules/fastP.nf'
+include {fastP} from './modules/fastP.nf'
+include {kraken} from './modules/kraken.nf'
+include {hydra} from './modules/hydra.nf'
 
 
 workflow {
 
 
 	Channel
-		.fromFilePairs(params.reads)
-		.ifEmpty {error "Cannot find any reads matching: ${params.reads}"}
-		.into {ch_sample}
+		.fromFilePairs(params.reads, flat:true)
+		.ifEmpty{error "Cannot find any reads matching: ${params.reads}"}
+		.set{ch_sample}
+		
 
 	main:
-		fastp(ch_sample)
-
+		//ch_sample.view()
+		fastP(ch_sample)
+		kraken(fastP.out.trimmed, params.krakenDB)
+		hydra(fastP.out.trimmed)
 
 }
 
