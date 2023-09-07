@@ -6,6 +6,7 @@ nextflow.enable.dsl=2
 include {fastP} from './modules/fastP.nf'
 include {kraken} from './modules/kraken.nf'
 include {hydra} from './modules/hydra.nf'
+include {sierra} from './modules/sierra.nf'
 
 
 workflow {
@@ -20,8 +21,9 @@ workflow {
 	main:
 		//ch_sample.view()
 		fastP(ch_sample)
-		kraken(fastP.out.trimmed, params.krakenDB)
+		//kraken(fastP.out.trimmed, params.krakenDB)
 		hydra(fastP.out.trimmed)
+		sierra(hydra.out.consensus)
 
 }
 

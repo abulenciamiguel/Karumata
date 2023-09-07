@@ -18,6 +18,7 @@ process hydra {
 
 	output:
 	path("${sample}/*")
+	tuple val(sample), path("${sample}/*.fasta"), emit: consensus
 
 
 	script:
