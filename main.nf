@@ -7,7 +7,7 @@ include {fastP} from './modules/fastP.nf'
 include {kraken} from './modules/kraken.nf'
 include {hydra} from './modules/hydra.nf'
 include {sierra} from './modules/sierra.nf'
-
+include {report} from './modules/report.nf'
 
 workflow {
 
@@ -24,6 +24,8 @@ workflow {
 		//kraken(fastP.out.trimmed, params.krakenDB)
 		hydra(fastP.out.trimmed)
 		sierra(hydra.out.consensus)
+		report(sierra.out.json, params.reportPDF)
+		//report(sierra.out.json)
 
 }
 

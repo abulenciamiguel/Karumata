@@ -16,7 +16,7 @@ process sierra {
 	tuple val(sample), path(fasta)
 
     output:
-    tuple val(sample), path('consensus*.json')
+    tuple val(sample), path('consensus*.json'), emit: json
 
     script:
     """
