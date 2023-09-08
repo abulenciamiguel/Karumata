@@ -15,13 +15,13 @@ process sierra {
 	input:
 	tuple val(sample), path(fasta)
 
-    output:
-    tuple val(sample), path('consensus*.json'), emit: json
+	output:
+	tuple val(sample), path('consensus*.json'), emit: json
 
-    script:
-    """
-    sierralocal $fasta \
+	script:
+	"""
+	sierralocal $fasta \
 	-o consensus_${sample}.json \
 	-xml ${params.sierraXML}
-    """
+	"""
 }

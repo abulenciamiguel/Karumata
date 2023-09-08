@@ -36,8 +36,6 @@ process hydra {
 	--min_freq ${params.hydraMinVariantFrequency} \
 	--id ${sample} \
 	--output_dir ${sample}
-    
-
 	"""
 
 }
