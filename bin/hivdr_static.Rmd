@@ -3,13 +3,14 @@ title: "**NGS-Based HIV Drug Resistance Report**"
 output: 
   pdf_document:
     includes:
-      in_header: header.tex
+      in_header: "`r params.header`"
     keep_tex: true
     
 nocite: '@*'
 bibliography: refs.bib
 
 params:
+  header: ""
   dr_report_hivdb: ""
   mutation_comments: ""
   mutational_threshold: 0
